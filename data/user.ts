@@ -22,7 +22,7 @@ export const getUserById = async (id: string) => {
 
 export const getUserByLogin = async (login: string) => {
     try {
-        const user = await db.user.findFirst({ where: { login } });
+        const user = await db.user.findUnique({ where: { login } });
 
         return user;
     } catch {
