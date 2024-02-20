@@ -3,7 +3,7 @@ import { JWT } from "@auth/core/jwt"
 import { UserRole } from "@prisma/client";
 
 export type ExtendedUser = DefaultSession["user"] & {
-    id: string;
+    // id: string;
     role: UserRole;
 };
 
