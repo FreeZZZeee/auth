@@ -1,13 +1,7 @@
 import nodemailer from "nodemailer";
-import Mail from "nodemailer/lib/mailer";
 
-export const sendVerificationEmail = async (
-    email: string, 
-    token: string
-    ) => {
-        const confirmLink = `http://localhost:3000/auth/new-verification?token=${token}`;
-
-        const transporter = nodemailer.createTransport({
+const createConnection = () => {
+    const transporter = nodemailer.createTransport({
         host: process.env.NODEMAILER_HOSTNAME,
         port: 587,
         secure: false,
@@ -18,7 +12,38 @@ export const sendVerificationEmail = async (
         },
         logger: true
         });
-        
+
+    return transporter;
+}
+
+export const sendPasswordResetEmail = async (
+    email: string,
+    token: string
+) => {
+    const resetLink = `http://localhost:3000/auth/new-password?token=${token}`;
+
+    const transporter = createConnection();        
+
+    // send mail with defined transport object
+    const info = await transporter.sendMail({
+        from: '"Техническая поддержка" <tech-group@pstu.ru>',
+        to: email,
+        subject: "Сброс пароля",
+        // text: "Hello world?",
+        html: `<p>Нажать <a href="${resetLink}">здесь</a> для сброса пароля</p>`,
+        // headers: { 'x-myheader': 'test header' }
+    });
+
+    return info.response;
+}
+
+export const sendVerificationEmail = async (
+    email: string, 
+    token: string
+    ) => {
+        const confirmLink = `http://localhost:3000/auth/new-verification?token=${token}`;
+
+        const transporter = createConnection();        
 
         // send mail with defined transport object
     const info = await transporter.sendMail({
