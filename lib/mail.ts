@@ -16,6 +16,25 @@ const createConnection = () => {
     return transporter;
 }
 
+export const sendTwoFactorTokenEmail = async (
+    email: string,
+    token: string
+) => {
+    const transporter = createConnection();        
+
+    // send mail with defined transport object
+    const info = await transporter.sendMail({
+        from: '"Техническая поддержка" <tech-group@pstu.ru>',
+        to: email,
+        subject: "Код двухэтапной аутентификации",
+        // text: "Hello world?",
+        html: `<p>Ваш код двухэтапной аутентификации: ${token}</p>`,
+        // headers: { 'x-myheader': 'test header' }
+    });
+
+    return info.response;
+}
+
 export const sendPasswordResetEmail = async (
     email: string,
     token: string
