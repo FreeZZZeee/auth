@@ -37,9 +37,13 @@ export const {
       if (token.sub && session.user) {
         session.user.id = token.sub;
       }
-
+     
       if (token.role && session.user) {
         session.user.role = token.role;
+      }
+
+      if (token.login && session.user) {
+        session.user.login = token.login;
       }
       
       return session;
@@ -52,6 +56,7 @@ export const {
       if (!existingUser) return token;
 
       token.role = existingUser.role;
+      token.login = existingUser.login;      
 
       return token;
     }
