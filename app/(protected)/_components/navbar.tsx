@@ -16,7 +16,7 @@ export const Navbar = () => {
                     variant={pathname === "/server" ? "default" : "outline"}
                 >
                     <Link href={"/server"}>
-                        Сервер
+                        Профиль
                     </Link>
                 </Button>
                 <Button

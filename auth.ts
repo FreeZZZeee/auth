@@ -57,6 +57,10 @@ export const {
       if (token.login && session.user) {
         session.user.login = token.login;
       }
+
+      if (session.user) {
+        session.user.isTwoFactorEnabled = token.isTwoFactorEnabled;
+      }
       
       return session;
     },
@@ -68,7 +72,8 @@ export const {
       if (!existingUser) return token;
 
       token.role = existingUser.role;
-      token.login = existingUser.login;      
+      token.login = existingUser.login; 
+      token.isTwoFactorEnabled = existingUser.isTwoFactorEnabled;     
 
       return token;
     }
