@@ -6,6 +6,7 @@ export type ExtendedUser = DefaultSession["user"] & {
     login: string | null;
     isTwoFactorEnabled: boolean;
     role: UserRole;
+    isOAuth: boolean;
 };
 
 declare module "next-auth" {
@@ -18,6 +19,7 @@ declare module "next-auth" {
     interface JWT {
         login: string | null,
         isTwoFactorEnabled: boolean,
-        role?: UserRole
+        role?: UserRole,
+        isOAuth: boolean,
     }
   }
